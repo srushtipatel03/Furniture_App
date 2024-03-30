@@ -56,6 +56,7 @@ exports.updateProduct = async (req, res) => {
     }
 };
 
+
 exports.deleteProduct = async (req, res) => {
     try {
         let product = await productServiece.getProductById(req.query.productId);
@@ -63,6 +64,7 @@ exports.deleteProduct = async (req, res) => {
             res.status(404).json({ message: `Product is not found...`});
         }
         product = await productServiece.updateProduct(product._id, {isDelete: true });
+        res.status(202).json({product, message: `Product deleted successfully.`});
     } catch (error) {
         console.log(error);
         res.status(500).json({ message: `Internal Server Error..`});

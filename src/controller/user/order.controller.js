@@ -34,8 +34,8 @@ exports.addNewOrder = async(req, res) => {
 
 exports.getAllOrders = async (req, res) => {
     try {
-        let orders = await orderServiece.getAllOrders({ user: req.user._id,  isDelete: false });
-        console.log(orders);
+        let orders = await orderService.getAllOrders({ user: req.user._id,  isDelete: false });
+        // console.log(orders);
         if (!orders) {
             res.status(404).json({ message: `Orders Not Found..Plase Try Again...`});
         }
@@ -48,8 +48,8 @@ exports.getAllOrders = async (req, res) => {
 
 exports.getOrder = async (req, res) => {
     try {
-        let order = await orderServiece.getOrderById({_id: req.query.orderId, isDelete: false});
-        console.log(order);
+        let order = await orderService.getOrderById({_id: req.query.orderId, isDelete: false});
+        // console.log(order);
         if (!order) {
             res.status(404).json({ message: `Orders Not Found..Plase Try Again...`});
         }
@@ -62,12 +62,12 @@ exports.getOrder = async (req, res) => {
 
 exports.deleteOrder = async (req, res) => {
     try {
-        let order = await orderServiece.getOrder({_id: req.query.orderId});
-        console.log(order);
+        let order = await orderService.getOrder({_id: req.query.orderId});
+        // console.log(order);
         if (!order) {
             res.status(404).json({ message: `Orders Not Found..Plase Try Again...`});
         }
-        order = await orderServiece.updateOrder(req.body.orderId, {isDelete: true })
+        order = await orderService.updateOrder(req.body.orderId, {isDelete: true })
         res.status(200).json({order, message: `Your Order Deleted Successfully...`});
     } catch (error) {
         console.log(error);

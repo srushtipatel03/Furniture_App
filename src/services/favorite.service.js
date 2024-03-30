@@ -40,7 +40,7 @@ module.exports = class FavoriteServices{
 
     async updateFavorite(id, body) {
         try {
-            return await Favorites.findByIdAndUpdate(id, { $set: body}, { new: true }).populate('user').populate('items');
+            return await Favorites.findByIdAndUpdate(id, { $set: body}, { new: true });
         } catch (error) {
             console.log(error);
             return error.message;
