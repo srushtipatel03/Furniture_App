@@ -1,11 +1,18 @@
 const express = require('express');
-const ReviewRoutes = express.Router();
-const {userVerifyToken} = require('../../helpers/verifyToken');
+const reviewRoutes = express.Router();
+const { userVerifyToken } = require('../../helpers/verifyToken');
+const {
+    addReview,
+    getAllReview,
+    getReview,
+    updateReview,
+    deleteReview
+} = require('../../controller/user/review.controller');
 
-const { addReview, getAllReview ,  deleteReview } = require('../../controller/user/review.controller');
+reviewRoutes.post('/add-Review', userVerifyToken, addReview);
+reviewRoutes.get('/get-All-Review', userVerifyToken, getAllReview);
+reviewRoutes.get('/get-Review', userVerifyToken, getReview);
+reviewRoutes.put('/update-Review', userVerifyToken, updateReview);
+reviewRoutes.delete('/delete-Review', userVerifyToken, deleteReview);
 
-ReviewRoutes.post('/add-Review' , userVerifyToken,  addReview);
-ReviewRoutes.get('/get-All-Review' , userVerifyToken,  getAllReview);
-ReviewRoutes.delete('/delete-Review' , userVerifyToken , deleteReview);
-
-module.exports = ReviewRoutes;
+module.exports = reviewRoutes;

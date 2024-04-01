@@ -16,7 +16,7 @@ exports.getAllReview = async (req, res) => {
 
 exports.deleteReview = async (req, res) => {
     try {
-        let review = await reviewService.getReviewById(req.query.Id);
+        let review = await reviewService.getReviewById({_id: req.query.reviewId, isDelete: false});
         if (!review) {
             return res.status(404).json({ message: ` This Review does not exist!` });
         }
@@ -27,3 +27,4 @@ exports.deleteReview = async (req, res) => {
         res.status(500).json({ message: `Internal Server Error...${console.error()}`});
     }
 };
+  

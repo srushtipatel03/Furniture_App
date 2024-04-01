@@ -1,8 +1,6 @@
 const Review = require('../model/review.model');
+module.exports = class ReviewServices{
 
-module.exports = class ReviewServieces {
-
-    // ADD NEW REVIEW
     async addNewReview(body) {
         try {
             return await Review.create(body);
@@ -12,20 +10,17 @@ module.exports = class ReviewServieces {
         }
     };
 
-    // GET ALL REVIEW
     async getAllReview(query) {
         try {
             let product = query.productId && query.productId !== undefined ? [
                 {
-                    $match: { product: query.productId }
+                    $match: { product: query.productId}
                 }
             ] : [];
             let find = [
-                { $match: { isDelete: false } },
+                { $match: { isDelete: false}},
                 ...product,
-
             ];
-
             let result = await Review.aggregate(find);
             return result;
         } catch (error) {
@@ -34,17 +29,15 @@ module.exports = class ReviewServieces {
         }
     };
 
-    //  GET SPECIFIC REVIEW
-    async getReview(query) {
+    async getReview(body) {
         try {
-            return await Review.findOne(query);
+            return await Review.findOne(body);
         } catch (error) {
             console.log(error);
             return error.message;
         }
     };
 
-    //  GET SPECIFIC REVIEW BY ID
     async getReviewById(id) {
         try {
             return await Review.findById(id);
@@ -54,14 +47,12 @@ module.exports = class ReviewServieces {
         }
     };
 
-    //  UPDATE REVIEW
     async updateReview(id, body) {
         try {
-            return await Review.findByIdAndUpdate(id, { $set: body }, { new: true });
+            return await Review.findByIdAndUpdate(id, { $set: body} , { new : true });
         } catch (error) {
             console.log(error);
             return error.message;
         }
-    };
-
+    }
 }
